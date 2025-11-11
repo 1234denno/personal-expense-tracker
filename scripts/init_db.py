@@ -1,10 +1,19 @@
+import sqlite3
 
----
+conn = sqlite3.connect("expenses.db")
+c = conn.cursor()
 
-### 🔹 File 5: `scripts/init_db.py`
-```python
-import db
+c.execute("""
+CREATE TABLE IF NOT EXISTS expenses (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    date TEXT NOT NULL,
+    category TEXT NOT NULL,
+    amount REAL NOT NULL,
+    description TEXT
+)
+""")
 
-if __name__ == "__main__":
-    db.init_db()
-    print("Database initialized ✅")
+conn.commit()
+conn.close()
+
+print("✅ Database initialized successfully!")
